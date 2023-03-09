@@ -1,4 +1,4 @@
-pub fn var_run() {
+pub fn run() {
     println!("Hello, entire world!");
 
     let name: &str = "Augustine";

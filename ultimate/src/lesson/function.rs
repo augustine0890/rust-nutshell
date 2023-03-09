@@ -27,7 +27,7 @@ fn quadruple(x: i32) -> i32 {
     (x * 2) * (x * 2)
 }
 
-pub fn func_run() {
+pub fn run() {
     let mut apples: i32 = 11;
     say_apples(apples);
     println!("I ate an apple!");
