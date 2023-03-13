@@ -1,6 +1,15 @@
 // Silence some warnings so they don't distract from the exercise.
 #![allow(dead_code, unused_mut, unused_variables)]
 
+// Q. What's the difference between a string literal and a borrowed string slice?
+//
+// A. A string literal is what is written in your source code. e.g. "this is a string literal",
+// while a borrowed strings slice (&str) is the *type* of the string literal. So:
+//
+//   let my_name: &str = "Augustine";
+//
+// The variable my_name is a borrowed string slice, initialized by the string literal "Augustine".
+
 fn main() {
     let args: Vec<String> = std::env::args().skip(1).collect();
 
@@ -44,6 +53,20 @@ fn main() {
         }
     }
     println!("The total is {}", total);
+
+    // Using unicode escape codes, use println to print out a sparkles emoji (codepoint 2728).
+    println!("\u{2728}");
+
+    let mut favorite = String::new();
+    let favorite = "\u{1f353}".to_string();
+    if favorite != "" {
+        println!("My favorite fruit is: {favorite}");
+    } else {
+        println!("No favorite fruit specified");
+    }
+
+    let saying = "Now is\nthe time\nfor all\ngreat men";
+    println!("{saying}")
 }
 
 fn sum() {
