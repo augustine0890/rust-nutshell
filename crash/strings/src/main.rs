@@ -66,7 +66,7 @@ fn main() {
     }
 
     let saying = "Now is\nthe time\nfor all\ngreat men";
-    println!("{saying}")
+    println!("{saying}");
 }
 
 fn sum() {

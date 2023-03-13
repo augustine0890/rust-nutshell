@@ -30,8 +30,16 @@ fn main() {
     println!("This material is just `{}`.", material);
     bedazzle(&mut material);
     println!("Wow! Now the material is `{}`!", material);
+
+    let name = String::from("Augustine");
+    let reference = &name;
+    say_hello(reference);
+    println!("{} is cool!", reference);
 }
 
+fn say_hello(name: &String) {
+    println!("Hello {}!", name);
+}
 // 1. Write a function `inspect` that takes a reference to a String, returns nothing, but
 // prints whether the contents of the String is plural or singular. Then uncomment and run this
 // code with `cargo run apple` and `cargo run apples'.  Hint: use `.ends_with("s")` on the
