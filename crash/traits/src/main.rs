@@ -1,4 +1,58 @@
+#![allow(dead_code)]
+
+// Items which implement the `Colorful` trait have a `color` method which will return a string
+// describing that item's color.
+trait Colorful {
+    fn color(&self) -> String;
+}
+
+struct Hat {
+    size: i8,
+}
+
+impl Hat {
+    fn new(size: i8) -> Self {
+        Self { size: size }
+    }
+}
+
+impl Colorful for Hat {
+    fn color(&self) -> String {
+        if self.size >= 0 && self.size < 6 {
+            "Red".to_string()
+        } else if self.size >= 6 && self.size < 8 {
+            "Green".to_string()
+        } else {
+            "Blue".to_string()
+        }
+    }
+}
+
+impl Colorful for i32 {
+    fn color(&self) -> String {
+        if is_even(&self) {
+            "Orange".to_string()
+        } else {
+            "Purple".to_string()
+        }
+    }
+}
+
 fn main() {
+    let small_hat = Hat { size: 2 };
+    let medium_hat = Hat { size: 7 };
+    let large_hat = Hat { size: 100 };
+    println!("The small hat is {}", small_hat.color());
+    println!("The medium hat is {}", medium_hat.color());
+    println!("The large hat is {}", large_hat.color());
+
+    for i in 0..=3 {
+        println!("{} is {}", i, i.color());
+    }
+
+    fortune(small_hat);
+    fortune(2);
+
     let mut carrot = Carrot {
         percent_left: 100.0,
     };
@@ -17,6 +71,18 @@ fn main() {
     //
     bunny_nibbles(&mut carrot);
     println!("Bunny nibbles for awhile: {:?}", carrot);
+}
+
+fn is_even(num: &i32) -> bool {
+    if num % 2 == 0 {
+        true
+    } else {
+        false
+    }
+}
+
+fn fortune<T: Colorful>(fortunes: T) {
+    println!("The color I see in your future is: {:?}", fortunes.color())
 }
 
 trait Bite {
