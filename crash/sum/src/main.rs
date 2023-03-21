@@ -1,4 +1,5 @@
 use std::io;
+use std::process;
 
 fn main() {
     println!("Please enter a first number: ");
@@ -26,8 +27,15 @@ fn main() {
     println!("{} + {} = {}", a, b, result);
 
     let res = divide(5, 0);
-    let value = res.expect("Failed to divide");
-    println!("Result: {}", value);
+    // let value = res.expect("Failed to divide");
+    // println!("Result: {}", value);
+    match res {
+        Ok(value) => println!("The result of the division is {}", value),
+        Err(err) => {
+            println!("Error: {}", err);
+            process::exit(1)
+        }
+    }
 }
 
 fn sum(a: u32, b: u32) -> u32 {
