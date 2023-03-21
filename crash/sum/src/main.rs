@@ -2,6 +2,22 @@ use std::io;
 use std::process;
 
 fn main() {
+    let result = calculate_sum();
+    println!("The sum of the inputs: {}", result);
+
+    let res = divide(5, 0);
+    // let value = res.expect("Failed to divide");
+    // println!("Result: {}", value);
+    match res {
+        Ok(value) => println!("The result of the division is {}", value),
+        Err(err) => {
+            println!("Error: {}", err);
+            process::exit(1)
+        }
+    }
+}
+
+fn calculate_sum() -> u32 {
     println!("Please enter a first number: ");
     let mut first = String::new();
     match io::stdin().read_line(&mut first) {
@@ -23,19 +39,7 @@ fn main() {
         .parse()
         .expect("Error parsing: may not a valid number");
 
-    let result = sum(a, b);
-    println!("{} + {} = {}", a, b, result);
-
-    let res = divide(5, 0);
-    // let value = res.expect("Failed to divide");
-    // println!("Result: {}", value);
-    match res {
-        Ok(value) => println!("The result of the division is {}", value),
-        Err(err) => {
-            println!("Error: {}", err);
-            process::exit(1)
-        }
-    }
+    sum(a, b)
 }
 
 fn sum(a: u32, b: u32) -> u32 {
