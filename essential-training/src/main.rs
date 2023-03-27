@@ -43,3 +43,26 @@ fn main() {
         println!("Both operands are false");
     }
 }
+
+#[allow(dead_code)]
+fn average(a: f32, b: f32, c: f32) -> f32 {
+    (a + b + c)/3 as f32
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::average;
+
+    #[test]
+    fn test_average() {
+        let a = 13 as f32;
+        let b = 2.3;
+        let c: f32 = 120.0;
+
+        let mut avg = average(a, b, c);
+        approx::assert_relative_eq!(avg, 45.1);
+
+        avg = (avg * 100.0).round() / 100.0;
+        assert_eq!(avg, 45.1);
+    }
+}
