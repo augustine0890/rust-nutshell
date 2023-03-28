@@ -15,9 +15,7 @@ fn convert_temp(cel_temp: f64) -> f64 {
 
 #[cfg(test)]
 mod tests {
-    use crate::average;
-    use crate::square;
-    use crate::convert_temp;
+    use super::*;
 
     #[test]
     fn test_average() {
