@@ -1,4 +1,5 @@
 #![allow(dead_code)]
+mod ownership;
 
 fn average(a: f32, b: f32, c: f32) -> f32 {
     (a + b + c)/3 as f32
@@ -13,9 +14,53 @@ fn convert_temp(cel_temp: f64) -> f64 {
     (1.8 * cel_temp) + 32.0
 }
 
+fn trim_spaces(msg: &str) -> &str {
+    let mut start = 0;
+    for (index, ch) in msg.chars().enumerate() {
+        if ch != ' ' {
+            start = index;
+            break;
+        }
+    }
+
+    let mut end = 0;
+    for (index, ch) in msg.chars().rev().enumerate() {
+        if ch != ' ' {
+            end = msg.len() - index;
+            break;
+        }
+    }
+
+    &msg[start..end]
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_trim_space() {
+        let test1 = "We need more space.";
+        assert_eq!(trim_spaces(test1), "We need more space.");
+        
+        let test2 = String::from("   There's space in front.");
+        assert_eq!(trim_spaces(&test2), "There's space in front.");
+        
+        let test3 = String::from("There's space to the rear. ");
+        assert_eq!(trim_spaces(&test3[..]), "There's space to the rear.");   
+        
+        let test4 = "  We're surrounded by space!    ";
+        assert_eq!(trim_spaces(test4), "We're surrounded by space!");
+        
+        let test5 = "     ";
+        assert_eq!(trim_spaces(test5), "");
+        
+        let test6 = "";
+        assert_eq!(trim_spaces(test6), "");
+        
+        let test7 = " x🚀xx ";
+        assert_eq!(trim_spaces(test7), "x🚀xx");
+    }
 
     #[test]
     fn test_average() {

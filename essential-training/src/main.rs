@@ -1,3 +1,5 @@
+mod ownership;
+
 fn main() {
     let mut value = 0b1111_0101u8;
     println!("The value is: {}", value);
@@ -77,4 +79,7 @@ fn main() {
     assert_eq!(min, -18);
     assert_eq!(mean, 12.5);
     println!("Tests (max, min, mean) passed!");
+
+
+    ownership::run();
 }
