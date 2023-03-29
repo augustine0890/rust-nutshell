@@ -1,4 +1,5 @@
 mod ownership;
+mod module;
 
 fn main() {
     let mut value = 0b1111_0101u8;
@@ -81,4 +82,6 @@ fn main() {
     println!("Tests (max, min, mean) passed!");
 
     ownership::run();
+
+    module::run();
 }
