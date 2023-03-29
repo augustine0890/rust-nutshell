@@ -3,7 +3,8 @@ use std::io;
 use rand::prelude::*;
 
 /*
-Cretes: a collection of Rust source code files
+- Cretes: a collection of Rust source code files.
+- The Prelude automatically important a variety of commonly used things for every Rust program to use.
  */
 pub fn run() {
     let random_number = random::<f64>();
@@ -17,20 +18,22 @@ pub fn run() {
 
 fn guess_number() {
     let secret_number = rand::thread_rng().gen_range(0..100);
-    println!("Enter the your number (0-99):");
-    
-    loop {
-        let number = guess_again();
+    println!("Enter your guess number (0-99). You have six chances to guess the number.");
+    let mut guessing_times = 6;
 
+    while guessing_times > 0 {
+        let number = guess_again();
+        guessing_times -= 1;
         if secret_number > number {
             println!("Your number is too low. Keep guessing!")
         } else if secret_number < number{
             println!("Your number is too high. Keep guessing!")
         } else {
-            println!("Correct! The number is: {}", secret_number);
+            println!("Correct! The secret number is: {}", secret_number);
             break;
         }
     }
+    println!("Sorry! You have used all of your guessing times.")
 }
 
 fn guess_again() -> i32 {
