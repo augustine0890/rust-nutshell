@@ -80,6 +80,5 @@ fn main() {
     assert_eq!(mean, 12.5);
     println!("Tests (max, min, mean) passed!");
 
-
     ownership::run();
 }
