@@ -10,6 +10,8 @@ pub fn run() {
     read_file();
 
     write_file();
+
+    roster();
 }
 
 fn read_file() {
@@ -38,10 +40,35 @@ fn write_file() {
     file.flush().unwrap();
     println!("Content has been written to '{}'", file_name);
 
-    // Sleep for 3 seconds
-    thread::sleep(Duration::from_secs(3));
+    // Sleep for 2 seconds
+    thread::sleep(Duration::from_secs(2));
     // Delete the file
     fs::remove_file(file_name).unwrap();
 
     println!("File '{}' has been deleted", file_name);
+}
+
+fn roster() {
+    let parsed_args: Vec<String> = env::args().skip(1).collect();
+    let args = &parsed_args;
+    // Check if at least two arguments are provided
+    if args.len() < 2 {
+        eprintln!("Program requires two arguments: <file path> <search name>");
+        std::process::exit(1);
+    }
+
+    let contents = fs::read_to_string(&args[0]).expect("Error: Failed to read the file");
+
+    let mut found = false;
+    for line in contents.lines() {
+        if args[1] == line {
+            println!("{} did walk on the Moon!", args[1]);
+            found = true;
+            break;
+        }
+    }
+
+    if !found {
+        println!("{} did NOT walk on the Moon... YET!", args[1]);
+    }
 }
