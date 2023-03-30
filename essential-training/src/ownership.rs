@@ -7,7 +7,7 @@ is owned by the variable whose scope is limited to that function.
 capacity because the slice will never own anything on the heap.
  */
 pub fn run() {
-    let message = String::from("Greetings from Earth!");
+    let mut message = String::from("Greetings from Earth!");
     let first_word = get_first_word(&message);
     println!("This first word is {}", first_word);
 
@@ -19,6 +19,9 @@ pub fn run() {
     println!("{:?} in inner_planets", inner_planets);
 
     get_message(&message);
+    println!("msg: {}", message);
+
+    add_message(&mut message);
     println!("msg: {}", message);
 }
 
@@ -48,4 +51,8 @@ fn get_last_word(msg: &str) -> &str {
 
 fn get_message(msg: &String) {
     println!("msg: {}", msg);
+}
+
+fn add_message(msg: &mut String) {
+    msg.push_str(" How's it going")
 }
