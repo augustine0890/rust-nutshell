@@ -1,5 +1,5 @@
-mod ownership;
 mod module;
+mod ownership;
 
 fn main() {
     let mut value = 0b1111_0101u8;
@@ -14,7 +14,7 @@ fn main() {
     println!("The binary representation: {:08b}", value);
     println!("bit 6 is {}", value & 0b0100_0000); // check bit with AND
 
-    value = value |  0b0100_0000; // set bit with OR
+    value = value | 0b0100_0000; // set bit with OR
     println!("The binary representation: {:08b}", value);
 
     value = value ^ 0b0101_0101; // XOR
@@ -35,7 +35,7 @@ fn main() {
     // The | operator operates on integers at the bit level, while || operates on boolean values.
     let x = 0b1010; // This is binary literal for decimal 10
     let y = 0b1100; // This is binary literal for decimal 12
-    // Bitwise OR
+                    // Bitwise OR
     let z = x | y;
     println!("Bitwise OR: {}", z); // Output: 14 (binary 1110)
 
@@ -61,7 +61,7 @@ fn main() {
 
     let numbers = [1, 9, -2, 0, 23, 20, -7, 13, 37, 20, 56, -18, 20, 3];
     let mut max: i32 = numbers[0];
-    let mut min: i32 =  numbers[0];
+    let mut min: i32 = numbers[0];
     let mut sum: f64 = 0.0;
 
     for num in numbers {

@@ -26,7 +26,7 @@ fn guess_number() {
         guessing_times -= 1;
         if secret_number > number {
             println!("Your number is too low. Keep guessing!")
-        } else if secret_number < number{
+        } else if secret_number < number {
             println!("Your number is too high. Keep guessing!")
         } else {
             println!("Correct! The secret number is: {}", secret_number);
@@ -38,7 +38,12 @@ fn guess_number() {
 
 fn guess_again() -> i32 {
     let mut guess_number = String::new();
-    io::stdin().read_line(&mut guess_number).expect("Failed to read input line.");
+    io::stdin()
+        .read_line(&mut guess_number)
+        .expect("Failed to read input line.");
     println!("Your answer is: {}", guess_number);
-    guess_number.trim().parse::<i32>().expect("Failed to parse the guess.")
+    guess_number
+        .trim()
+        .parse::<i32>()
+        .expect("Failed to parse the guess.")
 }
