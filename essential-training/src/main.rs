@@ -1,3 +1,4 @@
+mod arguments;
 mod module;
 mod ownership;
 
@@ -84,4 +85,6 @@ fn main() {
     ownership::run();
 
     module::run();
+
+    arguments::run();
 }

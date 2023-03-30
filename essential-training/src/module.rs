@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::io;
 // use rand::random;
 use rand::prelude::*;
@@ -13,7 +14,8 @@ pub fn run() {
     let rand_num = thread_rng().gen_range(1..11);
     println!("Random number is: {}", rand_num);
 
-    guess_number();
+    // Guessing game
+    // guess_number();
 }
 
 fn guess_number() {
@@ -21,6 +23,7 @@ fn guess_number() {
     println!("Enter your guess number (0-99). You have six chances to guess the number.");
     let mut guessing_times = 6;
 
+    let mut guessed_correctly = false;
     while guessing_times > 0 {
         let number = guess_again();
         guessing_times -= 1;
@@ -30,10 +33,17 @@ fn guess_number() {
             println!("Your number is too high. Keep guessing!")
         } else {
             println!("Correct! The secret number is: {}", secret_number);
+            guessed_correctly = true;
             break;
         }
     }
-    println!("Sorry! You have used all of your guessing times.")
+
+    if !guessed_correctly {
+        println!(
+            "Sorry! You have used all of your guessing times. The secret number is: {}",
+            secret_number
+        );
+    }
 }
 
 fn guess_again() -> i32 {
