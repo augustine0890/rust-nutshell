@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 
-use std::ops::{Mul, MulAssign};
+use std::ops::{Add, Mul, MulAssign};
 
 #[derive(Debug)]
 struct Animal {
@@ -73,6 +73,18 @@ fn get_bigger<T: PartialOrd>(a: T, b: T) -> T {
     }
 }
 
+/*
+Box<T>: a type of smart pointer that allows you to store data on the heap
+- The Box data type consists of pointer on the stack that points to a chunk of memory on the heap that has been allocated
+for the data. When the box goes out of scope, it will automatically drop and deallocate the memory it was using on the heap.
+ */
+fn sum_boxes<T>(a: Box<T>, b: Box<T>) -> Box<T::Output>
+where
+    T: Add<Output = T>,
+{
+    Box::new(*a + *b)
+}
+
 pub fn run() {
     println!("{:#?}", Animal::new(4, "woof".to_string(), 0.32));
     let shoes = Product::new("My shoes".to_string(), 100.23, 12.0);
@@ -83,6 +95,17 @@ pub fn run() {
         shoes.name,
         shoes.total_inventory()
     );
+}
+
+#[test]
+fn test_sum_boxes() {
+    let one = Box::new(1);
+    let two = Box::new(2);
+    assert_eq!(*sum_boxes(one, two), 3);
+
+    let pi = Box::new(3.14159);
+    let e = Box::new(2.71828);
+    assert_eq!(*sum_boxes(pi, e), 5.85987);
 }
 
 #[test]
