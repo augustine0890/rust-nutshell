@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::io::prelude::*;
 use std::time::Duration;
 use std::{env, fs, thread};

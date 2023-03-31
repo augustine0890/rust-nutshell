@@ -2,6 +2,7 @@
 mod arguments;
 mod module;
 mod ownership;
+mod structs;
 
 fn average(a: f32, b: f32, c: f32) -> f32 {
     (a + b + c) / 3 as f32
