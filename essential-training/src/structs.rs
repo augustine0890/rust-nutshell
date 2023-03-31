@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+use std::ops::{Mul, MulAssign};
+
 #[derive(Debug)]
 struct Animal {
     legs: i32,
@@ -31,23 +33,43 @@ impl Product {
 }
 
 #[derive(Debug)]
-struct Rectangle {
-    width: f64,
-    height: f64,
+struct Rectangle<T, U> {
+    width: T,
+    height: U,
 }
 
-impl Rectangle {
-    fn new(width: f64, height: f64) -> Self {
+impl<T, U> Rectangle<T, U> {
+    fn new(width: T, height: U) -> Self {
         Rectangle { width, height }
     }
+}
 
-    fn get_area(&self) -> f64 {
+impl<T, U, V> Rectangle<T, U>
+where
+    T: Mul<U, Output = V> + Copy + Clone,
+    U: Mul<V, Output = V> + Copy + Clone,
+{
+    fn get_area(&self) -> V {
         self.width * self.height
     }
+}
 
-    fn scale(&mut self, scalar: f64) {
-        self.width *= scalar;
-        self.height *= scalar;
+impl<T, U> Rectangle<T, U>
+where
+    T: MulAssign<T>,
+    U: MulAssign<U>,
+{
+    fn scale(&mut self, scalar_width: T, scalar_height: U) {
+        self.width *= scalar_width;
+        self.height *= scalar_height;
+    }
+}
+
+fn get_bigger<T: PartialOrd>(a: T, b: T) -> T {
+    if a > b {
+        a
+    } else {
+        b
     }
 }
 
@@ -67,6 +89,13 @@ pub fn run() {
 fn test_rectangle() {
     let mut rect = Rectangle::new(1.2, 3.4);
     assert_eq!(rect.get_area(), 4.08);
-    rect.scale(0.5);
+    rect.scale(0.5, 0.5);
     assert_eq!(rect.get_area(), 1.02);
+}
+
+#[test]
+fn test_get_bigger() {
+    assert_eq!(get_bigger(2, 3), 3);
+    assert_eq!(get_bigger(4.0, 2.0), 4.0);
+    assert_eq!(get_bigger('A', 'C'), 'C');
 }
