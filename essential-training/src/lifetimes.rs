@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 /*
 The borrow checker makes sure the scope of variables to make sure all borrows are valid
 - Each input parameter that is a reference is assigned its own lifetime.

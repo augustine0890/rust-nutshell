@@ -1,9 +1,10 @@
 mod arguments;
-mod lifetimes;
+mod enums;
+// mod lifetimes;
 mod module;
 mod ownership;
-mod structs;
-mod traits;
+// mod structs;
+// mod traits;
 
 fn main() {
     let mut value = 0b1111_0101u8;
@@ -91,9 +92,11 @@ fn main() {
 
     // arguments::run();
 
-    structs::run();
+    // structs::run();
 
-    traits::run();
+    // traits::run();
 
-    lifetimes::run();
+    // lifetimes::run();
+
+    enums::run();
 }
