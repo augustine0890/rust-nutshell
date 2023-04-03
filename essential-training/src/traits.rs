@@ -1,6 +1,9 @@
 use std::any;
 use std::fmt;
 
+/*
+- Deriving a trait uses a generic, default implement of that trait.
+ */
 #[derive(PartialEq, PartialOrd)]
 struct Satellite {
     name: String,
@@ -13,6 +16,9 @@ struct SpaceStation {
     altitude: u32, // miles
 }
 
+/*
+It is contract that specifies certain capabilities that a type must have. Allows to create abstractions and generics.
+ */
 trait Description {
     fn describe(&self) -> String {
         String::from("An object flying through space!")
@@ -37,10 +43,25 @@ impl Description for SpaceStation {
     }
 }
 
+impl fmt::Display for Satellite {
+    fn fmt(&self, fmt: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            fmt,
+            "{} flying at {} miles per hour",
+            self.name, self.velocity
+        )
+    }
+}
+
+/*
+Trait bound: allows to write functions that accept many different data types while guaranteeing
+that the types it accepts will have the necessary behaviors for your function to use them
+ */
 fn print_type<T: fmt::Debug>(item: T) {
     println!("{:?} is {}", item, any::type_name::<T>());
 }
-
+/*
+It makes a function signature more readable by grouping together multiple trait bounds */
 // fn compare_and_print<T: fmt::Display + PartialEq + From<U>, U: fmt::Display + PartialEq + Copy>(a: T, b: U) {
 fn compare_and_print<T, U>(a: T, b: U)
 where
@@ -72,6 +93,7 @@ pub fn run() {
         velocity: 2.42,
     };
     println!("hubble is {}", hubble.describe());
+    println!("hubble is {}", hubble);
     println!("hubble == gps is {}", hubble == gps);
     println!("hubble > gps is {}", hubble > gps);
 

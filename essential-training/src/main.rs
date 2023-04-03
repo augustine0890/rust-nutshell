@@ -1,4 +1,5 @@
 mod arguments;
+mod lifetimes;
 mod module;
 mod ownership;
 mod structs;
@@ -93,4 +94,6 @@ fn main() {
     structs::run();
 
     traits::run();
+
+    lifetimes::run();
 }

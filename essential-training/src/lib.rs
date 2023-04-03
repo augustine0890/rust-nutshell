@@ -1,9 +1,9 @@
 #![allow(dead_code)]
 mod arguments;
+mod lifetimes;
 mod module;
 mod ownership;
 mod structs;
-mod traits;
 
 fn average(a: f32, b: f32, c: f32) -> f32 {
     (a + b + c) / 3 as f32
