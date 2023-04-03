@@ -19,7 +19,33 @@ impl Shape {
     }
 }
 
+enum Location {
+    Unknown,
+    Anonymous,
+    Known(f64, f64),
+}
+
+impl Location {
+    fn display(&self) {
+        match self {
+            Location::Unknown => println!("Unknown location"),
+            Location::Anonymous => println!("Anonymous location"),
+            Location::Known(x, y) => println!("The location: ({}, {})", x, y),
+        }
+    }
+}
+
+/*
+enum: defines a data type with multiple possible variants.
+ */
 pub fn run() {
+    let address = Location::Unknown;
+    address.display();
+    let address = Location::Anonymous;
+    address.display();
+    let address = Location::Known(28.608295, -80.604177);
+    address.display();
+
     let my_shape = Shape::Circle(2.5);
     println!("My shape: {:?}", my_shape);
     println!("Perimeter is: {}", my_shape.get_perimeter());
