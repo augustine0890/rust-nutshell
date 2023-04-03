@@ -1,3 +1,4 @@
+#[derive(PartialEq, PartialOrd)]
 struct Satellite {
     name: String,
     velocity: f64, // miles per second
@@ -10,7 +11,9 @@ struct SpaceStation {
 }
 
 trait Description {
-    fn describe(&self) -> String;
+    fn describe(&self) -> String {
+        String::from("An object flying through space!")
+    }
 }
 
 impl Description for Satellite {
@@ -36,13 +39,18 @@ pub fn run() {
         name: String::from("Hubble Telescope"),
         velocity: 4.72,
     };
+    let gps = Satellite {
+        name: String::from("GPS"),
+        velocity: 2.42,
+    };
+    println!("hubble is {}", hubble.describe());
+    println!("hubble == gps is {}", hubble == gps);
+    println!("hubble > gps is {}", hubble > gps);
 
     let iss = SpaceStation {
         name: String::from("International Space Station"),
         crew_size: 6,
         altitude: 254,
     };
-
-    println!("hubble is {}", hubble.describe());
     println!("iss is {}", iss.describe());
 }
