@@ -1,3 +1,6 @@
+use std::any;
+use std::fmt;
+
 #[derive(PartialEq, PartialOrd)]
 struct Satellite {
     name: String,
@@ -34,7 +37,32 @@ impl Description for SpaceStation {
     }
 }
 
+fn print_type<T: fmt::Debug>(item: T) {
+    println!("{:?} is {}", item, any::type_name::<T>());
+}
+
+// fn compare_and_print<T: fmt::Display + PartialEq + From<U>, U: fmt::Display + PartialEq + Copy>(a: T, b: U) {
+fn compare_and_print<T, U>(a: T, b: U)
+where
+    T: fmt::Display + PartialEq + From<U>,
+    U: fmt::Display + PartialEq + Copy,
+{
+    if a == T::from(b) {
+        println!("{} is equal to {}", a, b);
+    } else {
+        println!("{} is not equal to {}", a, b)
+    }
+}
+
 pub fn run() {
+    compare_and_print(1.0, 1);
+    compare_and_print(1.1, 1);
+
+    print_type(2);
+    print_type(2.5);
+    print_type("The item");
+    print_type([12, 15]);
+
     let hubble = Satellite {
         name: String::from("Hubble Telescope"),
         velocity: 4.72,
