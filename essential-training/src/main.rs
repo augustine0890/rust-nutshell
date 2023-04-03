@@ -2,6 +2,7 @@ mod arguments;
 mod module;
 mod ownership;
 mod structs;
+mod traits;
 
 fn main() {
     let mut value = 0b1111_0101u8;
@@ -90,4 +91,6 @@ fn main() {
     // arguments::run();
 
     structs::run();
+
+    traits::run();
 }
