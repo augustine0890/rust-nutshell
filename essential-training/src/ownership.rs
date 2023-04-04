@@ -1,3 +1,5 @@
+#[allow(dead_code)]
+
 /*
 - The String data type stores the sequence of characters that make up the String on the heap and it
 stores a structure containing a pointer to the heap data, the String's length, and its capacity on the stack.

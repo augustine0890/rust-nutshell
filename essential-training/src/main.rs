@@ -1,6 +1,7 @@
 mod arguments;
 mod enums;
 // mod lifetimes;
+mod error;
 mod module;
 mod ownership;
 // mod structs;
@@ -86,9 +87,9 @@ fn main() {
     assert_eq!(mean, 12.5);
     println!("Tests (max, min, mean) passed!");
 
-    ownership::run();
+    // ownership::run();
 
-    module::run();
+    // module::run();
 
     // arguments::run();
 
@@ -98,5 +99,7 @@ fn main() {
 
     // lifetimes::run();
 
-    enums::run();
+    // enums::run();
+
+    error::run();
 }
