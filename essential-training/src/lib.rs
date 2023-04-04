@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 mod arguments;
+mod error;
 mod lifetimes;
 mod module;
 mod ownership;

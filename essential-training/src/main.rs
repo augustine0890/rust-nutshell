@@ -1,7 +1,7 @@
 mod arguments;
 mod enums;
 // mod lifetimes;
-mod error;
+// mod error;
 mod module;
 mod ownership;
 // mod structs;
@@ -89,7 +89,7 @@ fn main() {
 
     // ownership::run();
 
-    // module::run();
+    module::run();
 
     // arguments::run();
 
@@ -101,5 +101,5 @@ fn main() {
 
     // enums::run();
 
-    error::run();
+    // error::run();
 }

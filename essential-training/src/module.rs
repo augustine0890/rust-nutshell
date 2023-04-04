@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 use std::io;
+use std::num::ParseIntError;
 // use rand::random;
 use rand::prelude::*;
 
@@ -15,45 +16,59 @@ pub fn run() {
     println!("Random number is: {}", rand_num);
 
     // Guessing game
-    // guess_number();
+    guess_number();
 }
 
 fn guess_number() {
     let secret_number = rand::thread_rng().gen_range(0..100);
     println!("Enter your guess number (0-99). You have six chances to guess the number.");
-    let mut guessing_times = 6;
+    const MAX_GUESSES: u32 = 6;
 
-    let mut guessed_correctly = false;
-    while guessing_times > 0 {
-        let number = guess_again();
-        guessing_times -= 1;
-        if secret_number > number {
-            println!("Your number is too low. Keep guessing!")
-        } else if secret_number < number {
-            println!("Your number is too high. Keep guessing!")
-        } else {
-            println!("Correct! The secret number is: {}", secret_number);
-            guessed_correctly = true;
-            break;
+    for attempt in 1..=MAX_GUESSES {
+        let remaining_attempts = MAX_GUESSES - attempt;
+        match guess_again() {
+            Ok(value) => match value {
+                value if value < secret_number => {
+                    println!(
+                        "Your number is too low. Keep guessing! Attempts remaining: {}",
+                        remaining_attempts
+                    );
+                }
+                value if value > secret_number => {
+                    println!(
+                        "Your number is too high. Keep guessing! Attempts remaining: {}",
+                        remaining_attempts
+                    );
+                }
+                _ => {
+                    println!("Correct! The secret number is: {}", secret_number);
+                    return;
+                }
+            },
+
+            Err(_) => {
+                println!(
+                    "\nFailed to parse input. Guess again. Attempts remaining: {}",
+                    remaining_attempts
+                );
+            }
         }
     }
 
-    if !guessed_correctly {
-        println!(
-            "Sorry! You have used all of your guessing times. The secret number is: {}",
-            secret_number
-        );
-    }
+    println!(
+        "Sorry! You have used all of your guessing times. The secret number is: {}",
+        secret_number
+    );
 }
 
-fn guess_again() -> i32 {
-    let mut guess_number = String::new();
+fn guess_again() -> Result<i32, ParseIntError> {
+    let mut guess = String::new();
     io::stdin()
-        .read_line(&mut guess_number)
+        .read_line(&mut guess)
         .expect("Failed to read input line.");
-    println!("Your answer is: {}", guess_number);
-    guess_number
-        .trim()
-        .parse::<i32>()
-        .expect("Failed to parse the guess.")
+    println!("Your answer is: {}", guess);
+
+    guess.trim().parse::<i32>()
+    // let number = guess.trim().parse::<i32>()?;
+    // Ok(number)
 }
