@@ -6,6 +6,7 @@ mod module;
 mod ownership;
 // mod structs;
 // mod traits;
+mod collections;
 
 fn main() {
     let mut value = 0b1111_0101u8;
@@ -89,7 +90,7 @@ fn main() {
 
     // ownership::run();
 
-    module::run();
+    // module::run();
 
     // arguments::run();
 
@@ -102,4 +103,6 @@ fn main() {
     // enums::run();
 
     // error::run();
+
+    collections::run();
 }
