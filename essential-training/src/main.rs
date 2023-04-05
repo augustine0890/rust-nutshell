@@ -1,12 +1,14 @@
-mod arguments;
-mod enums;
-// mod lifetimes;
+// mod arguments;
+// mod collections;
+// mod enums;
 // mod error;
-mod module;
-mod ownership;
+// mod lifetimes;
+// mod module;
+// mod ownership;
 // mod structs;
 // mod traits;
-mod collections;
+
+use std::{collections::HashMap, env, fs};
 
 fn main() {
     let mut value = 0b1111_0101u8;
@@ -104,5 +106,50 @@ fn main() {
 
     // error::run();
 
-    collections::run();
+    // collections::run();
+
+    count_words();
+}
+
+fn count_words() {
+    let parsed_args: Vec<String> = env::args().skip(1).collect();
+    if parsed_args.len() < 1 {
+        eprintln!("Program requires an argument: <file path>");
+        std::process::exit(2);
+    }
+
+    let contents = match parsed_args.get(0) {
+        Some(name) => match fs::read_to_string(&name) {
+            Ok(content) => content,
+            Err(_) => {
+                eprintln!("Error: Failed to read the file: {}", name);
+                std::process::exit(1);
+            }
+        },
+        None => {
+            eprintln!("Error: No file name provided");
+            std::process::exit(1);
+        }
+    };
+
+    let mut word_counts = HashMap::new();
+    for word in contents.split_whitespace() {
+        let cleaned_word = clean_word(word);
+        let counter = word_counts.entry(cleaned_word).or_insert(0);
+        *counter += 1;
+    }
+
+    let mut sorted_word_counts: Vec<(&String, &usize)> = word_counts.iter().collect();
+    sorted_word_counts.sort_by(|b, a| a.1.cmp(b.1));
+
+    println!("Top 10 most frequent words:");
+    for (word, count) in sorted_word_counts.iter().take(10) {
+        println!("{word}: {count}");
+    }
+}
+
+// Removes non-alphanumeric characters and converts the word to lowercase.
+fn clean_word(word: &str) -> String {
+    word.trim_matches(|c: char| !c.is_alphabetic())
+        .to_lowercase()
 }
