@@ -1,12 +1,13 @@
-use std::collections::HashMap;
+mod to_do;
+use to_do::structs::done::Done;
+use to_do::structs::pending::Pending;
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Returns current IP address
-    let resp = reqwest::get("https://httpbin.org/ip")
-        .await?
-        .json::<HashMap<String, String>>()
-        .await?;
-    println!("{:#?}", resp);
-    Ok(())
+fn main() {
+    let done = Done::new("learning");
+    println!("{}", done.super_struct.title);
+    println!("{}", done.super_struct.status);
+
+    let pending = Pending::new("some jobs");
+    println!("{}", pending.super_struct.title);
+    println!("{}", pending.super_struct.status);
 }
