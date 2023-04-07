@@ -7,5 +7,3 @@ edition = "2021"
 
 [dependencies]
 actix-web = "4.3.1"
-actix-rt = "2.2" # <-- Runtime for actix
-futures = "0.3.28"
