@@ -1,4 +1,5 @@
 #![allow(unused_variables, dead_code)]
+use std::mem::size_of_val;
 
 pub fn run() {
     let x: i32 = 5;
@@ -86,9 +87,61 @@ fn computations() {
     println!("0x80 >> 2 is 0x{:x}", 0x80u32 >> 2);
 }
 
+fn print_char(c: char) {
+    println!("{}", c);
+}
+
+fn char() {
+    let c1 = 'a';
+    assert_eq!(size_of_val(&c1), 4);
+    let c2 = '네';
+    assert_eq!(size_of_val(&c2), 4);
+    print_char(c2);
+}
+
+fn bool() {
+    let _f: bool = false;
+    let t = false;
+    if !t {
+        println!("Something!");
+    }
+
+    let f = true;
+    let b = true && true;
+    assert_eq!(b, f);
+}
+
+fn implicitly_ret_unit() {
+    println!("I will return a ()");
+}
+
+fn unit() {
+    let v0 = ();
+    let v = (2, 3);
+    assert_eq!(v0, implicitly_ret_unit());
+
+    let unit = ();
+    assert_eq!(size_of_val(&unit), 0);
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_unit() {
+        unit();
+    }
+
+    #[test]
+    fn test_bool() {
+        bool();
+    }
+
+    #[test]
+    fn test_char() {
+        char();
+    }
 
     #[test]
     fn test_integer() {
