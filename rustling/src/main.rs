@@ -4,6 +4,7 @@ mod intro;
 mod primitive;
 mod quiz;
 mod semantics;
+mod structs;
 mod variables;
 mod vecs;
 
