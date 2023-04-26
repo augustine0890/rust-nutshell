@@ -1,4 +1,5 @@
 mod conditions;
+mod enums;
 mod functions;
 mod intro;
 mod primitive;
