@@ -1,6 +1,7 @@
 mod conditions;
 mod enums;
 mod functions;
+mod hashmaps;
 mod intro;
 mod modules;
 mod primitive;

@@ -1,5 +1,4 @@
 #![allow(dead_code)]
-use std::time::{SystemTime, UNIX_EPOCH};
 
 mod sausage_factory {
     // Don't let anybody outside of this module see this!
@@ -32,6 +31,7 @@ mod delicious_snacks {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::time::{SystemTime, UNIX_EPOCH};
 
     #[test]
     fn run_test() {
