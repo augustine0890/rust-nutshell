@@ -2,6 +2,7 @@ mod conditions;
 mod enums;
 mod functions;
 mod intro;
+mod modules;
 mod primitive;
 mod quiz;
 mod semantics;
