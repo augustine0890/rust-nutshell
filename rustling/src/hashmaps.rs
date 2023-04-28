@@ -40,16 +40,25 @@ struct Team {
     goals_conceded: u8,
 }
 
-fn build_scores_table(results: String) -> HashMap<String, Team> {
+fn build_scores_table(results: &str) -> HashMap<String, Team> {
     // The name of the team is the key and its associated struct is the value.
     let mut scores: HashMap<String, Team> = HashMap::new();
 
     for r in results.lines() {
-        let v: Vec<&str> = r.split(',').collect();
-        let team_1_name = v[0].to_string();
-        let team_1_score: u8 = v[2].parse().unwrap();
-        let team_2_name = v[1].to_string();
-        let team_2_score: u8 = v[3].parse().unwrap();
+        let fields: Vec<_> = r.split(',').collect();
+
+        if fields.len() != 4 {
+            eprintln!("Invalid input: {}", r);
+            continue;
+        }
+
+        let team1 = fields[0].trim();
+        let team2 = fields[1].trim();
+        let score1: u8 = fields[2].trim().parse().unwrap_or_default();
+        let score2: u8 = fields[3].trim().parse().unwrap_or_default();
+
+        let (team1_scored, team1_conceded, team2_scored, team2_conceded) =
+            (score1, score2, score2, score1);
 
         // TODO: Populate the scores table with details extracted from the
         // current line. Keep in mind that goals scored by team_1
@@ -57,27 +66,27 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
         scores
-            .entry(team_1_name.clone())
+            .entry(team1.to_string())
             .and_modify(|team| {
-                team.goals_scored += team_1_score;
-                team.goals_conceded += team_2_score;
+                team.goals_scored += team1_scored;
+                team.goals_conceded += team1_conceded;
             })
             .or_insert(Team {
-                name: team_1_name,
-                goals_scored: team_1_score,
-                goals_conceded: team_2_score,
+                name: team1.to_string(),
+                goals_scored: team1_scored,
+                goals_conceded: team1_conceded,
             });
 
         scores
-            .entry(team_2_name.clone())
+            .entry(team2.to_string())
             .and_modify(|team| {
-                team.goals_scored += team_2_score;
-                team.goals_conceded += team_1_score;
+                team.goals_scored += team2_scored;
+                team.goals_conceded += team2_conceded;
             })
             .or_insert(Team {
-                name: team_2_name,
-                goals_scored: team_2_score,
-                goals_conceded: team_1_score,
+                name: team2.to_string(),
+                goals_scored: team2_scored,
+                goals_conceded: team2_conceded,
             });
     }
 
@@ -98,7 +107,7 @@ mod tests {
 
     #[test]
     fn build_scores() {
-        let scores = build_scores_table(get_results());
+        let scores = build_scores_table(&get_results());
 
         let mut keys: Vec<&String> = scores.keys().collect();
         keys.sort();
@@ -110,7 +119,7 @@ mod tests {
 
     #[test]
     fn validate_team_score_1() {
-        let scores = build_scores_table(get_results());
+        let scores = build_scores_table(&get_results());
         let team = scores.get("England").unwrap();
         assert_eq!(team.goals_scored, 5);
         assert_eq!(team.goals_conceded, 4);
@@ -118,7 +127,7 @@ mod tests {
 
     #[test]
     fn validate_team_score_2() {
-        let scores = build_scores_table(get_results());
+        let scores = build_scores_table(&get_results());
         let team = scores.get("Spain").unwrap();
         assert_eq!(team.goals_scored, 0);
         assert_eq!(team.goals_conceded, 2);
