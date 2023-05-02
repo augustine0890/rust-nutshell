@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 use std::error::Error;
+use std::fmt;
 use std::num::ParseIntError;
 
 pub fn generate_nametag_text(name: String) -> Result<String, String> {
@@ -57,6 +58,17 @@ impl PositiveNonzeroInteger {
             0 => Err(CreationError::Zero),
             value => Ok(PositiveNonzeroInteger(value as u64)),
         }
+    }
+}
+
+// This is required so that `CreationError` can implement `error::Error`.
+impl fmt::Display for CreationError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let description = match *self {
+            CreationError::Negative => "number is negative",
+            CreationError::Zero => "number is zero",
+        };
+        f.write_str(description)
     }
 }
 
