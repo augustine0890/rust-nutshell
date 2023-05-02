@@ -2,6 +2,7 @@ mod conditions;
 mod enums;
 mod errors;
 mod functions;
+mod generics;
 mod hashmaps;
 mod intro;
 mod modules;
