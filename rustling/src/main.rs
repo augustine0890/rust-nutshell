@@ -1,5 +1,6 @@
 mod conditions;
 mod enums;
+mod errors;
 mod functions;
 mod hashmaps;
 mod intro;
