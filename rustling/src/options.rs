@@ -13,9 +13,30 @@ fn maybe_icecream(time_of_day: u16) -> Option<u16> {
     }
 }
 
+#[derive(Debug, PartialEq)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_point() {
+        let y: Option<Point> = Some(Point { x: 100, y: 200 });
+
+        match &y {
+            Some(p) => {
+                // Test the returned value, if needed.
+                assert_eq!(y, Some(Point { x: 100, y: 200 }));
+                println!("Co-ordinates are {:?} ", p);
+            }
+            _ => println!("no match"),
+        }
+        // y // Fix without deleting this line.
+    }
 
     #[test]
     fn simple_option() {
