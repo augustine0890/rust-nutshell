@@ -1,4 +1,5 @@
 #![allow(dead_code)]
+use std::error::Error;
 use std::num::ParseIntError;
 
 pub fn generate_nametag_text(name: String) -> Result<String, String> {
@@ -24,9 +25,31 @@ pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
         .map(|qty| qty * cost_per_item + processing_fee)
 }
 
+fn spend_total_cost() -> Result<(), Box<dyn Error>> {
+    let mut tokens = 100;
+    let pretend_user_input = "8";
+
+    let cost = total_cost(pretend_user_input)?;
+
+    if cost > tokens {
+        println!("You can't afford that many!");
+    } else {
+        tokens -= cost;
+        println!("You now have {} tokens.", tokens);
+    }
+
+    Ok(())
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn test_spend_total_cost() {
+        let result = spend_total_cost();
+
+        assert!(result.is_ok());
+    }
 
     #[test]
     fn item_quantity_is_a_valid_number() {
