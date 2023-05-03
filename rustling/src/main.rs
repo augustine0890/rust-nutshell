@@ -14,6 +14,7 @@ mod quiz3;
 mod semantics;
 mod strings;
 mod structs;
+mod tests;
 mod traits;
 mod variables;
 mod vecs;
