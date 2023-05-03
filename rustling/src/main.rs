@@ -10,6 +10,7 @@ mod options;
 mod primitive;
 mod quiz;
 mod quiz2;
+mod quiz3;
 mod semantics;
 mod strings;
 mod structs;
