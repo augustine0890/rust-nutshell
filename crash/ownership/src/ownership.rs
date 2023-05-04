@@ -6,6 +6,8 @@
 - When the owner goes out of scope, the value will be dropped
 - Data types that implement the copy trait ignore the Ownership Rules
 - The copy trait is implemented by the primitive data types stored on the stack
+- Use String when you need to own the string data
+- Use &str when you only need to borrow a string
 */
 
 fn rule_ownership() {
@@ -38,7 +40,7 @@ impl Clone for Person {
     }
 }
 
-fn print_length(x: &String) {
+fn print_length(x: &str) {
     println!("The length of '{}' is {}.", x, x.len());
 }
 
@@ -73,6 +75,9 @@ mod tests {
         let y = &mut s;
         y.push_str("!");
         print_length(y);
+
+        let z = &s[..];
+        print_length(z);
 
         let p1 = Person {
             id: 1,
