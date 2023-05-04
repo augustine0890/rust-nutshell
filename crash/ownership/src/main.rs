@@ -1,5 +1,6 @@
 // Silence some warnings so they don't distract from the exercise.
 #![allow(unused_mut, unused_variables)]
+mod ownership;
 
 fn main() {
     // This fancy stuff either gets the first argument as a String, or prints
