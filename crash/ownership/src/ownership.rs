@@ -38,12 +38,42 @@ impl Clone for Person {
     }
 }
 
+fn print_length(x: &String) {
+    println!("The length of '{}' is {}.", x, x.len());
+}
+
+fn danggling_ref() -> String {
+    // let s = "hello world".to_string();
+    // &s
+    "hello world".to_string()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
+    fn test_reference() {
+        danggling_ref();
+
+        let mut x = 45;
+
+        let y = &mut x;
+        *y += 1;
+        println!("y = {}", y);
+
+        println!("x = {}", x);
+    }
+
+    #[test]
     fn test() {
+        let mut s = String::from("This is String");
+        print_length(&s);
+
+        let y = &mut s;
+        y.push_str("!");
+        print_length(y);
+
         let p1 = Person {
             id: 1,
             age: 29,
