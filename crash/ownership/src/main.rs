@@ -1,5 +1,6 @@
 // Silence some warnings so they don't distract from the exercise.
 #![allow(unused_mut, unused_variables)]
+mod lifetime;
 mod ownership;
 
 fn main() {
