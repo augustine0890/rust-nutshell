@@ -7,12 +7,13 @@ the lifetime of multiple references to each other without affecting the lifetime
  */
 
 #[derive(Debug)]
-struct Person {
+struct Person<'a> {
     name: String,
     age: u8,
+    favorite_fruit: &'a str,
 }
 
-fn get_oldest<'a>(person1: &'a Person, person2: &'a Person) -> &'a Person {
+fn get_oldest<'a>(person1: &'a Person<'a>, person2: &'a Person<'a>) -> &'a Person<'a> {
     if person1.age > person2.age {
         person1
     } else {
@@ -26,13 +27,16 @@ mod tests {
 
     #[test]
     fn run_test() {
+        let fruits = vec!["Apples", "Clementines", "Grapefruit", "Kiwis"];
         let p1 = Person {
             name: "John".to_string(),
             age: 20,
+            favorite_fruit: fruits[0],
         };
         let p2 = Person {
             name: "Jane".to_string(),
             age: 30,
+            favorite_fruit: fruits[1],
         };
 
         {
