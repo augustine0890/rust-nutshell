@@ -5,6 +5,7 @@ mod functions;
 mod generics;
 mod hashmaps;
 mod intro;
+mod iterators;
 mod lifetimes;
 mod modules;
 mod options;
