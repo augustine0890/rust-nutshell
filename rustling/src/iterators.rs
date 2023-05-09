@@ -1,4 +1,5 @@
 #![allow(dead_code)]
+use std::collections::HashMap;
 
 // Step 1.
 // Complete the `capitalize_first` function.
@@ -82,9 +83,40 @@ fn list_of_results() -> Vec<Result<i32, DivisionError>> {
     division_results.collect()
 }
 
+// Complete this function to return the factorial of num
+// Do not use:
+// - return
+// Try not to use:
+// - imperative style loops (for, while)
+// - additional variables
+// For an extra challenge, don't use:
+// - recursion
+pub fn factorial(num: u64) -> u64 {
+    (1..=num).product()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn factorial_of_0() {
+        assert_eq!(1, factorial(0));
+    }
+
+    #[test]
+    fn factorial_of_1() {
+        assert_eq!(1, factorial(1));
+    }
+    #[test]
+    fn factorial_of_2() {
+        assert_eq!(2, factorial(2));
+    }
+
+    #[test]
+    fn factorial_of_4() {
+        assert_eq!(24, factorial(4));
+    }
 
     #[test]
     fn test_success() {
