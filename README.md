@@ -17,6 +17,7 @@
 - `cargo build` --> compile
 - `cargo run` --> compile and run
 - `cargo clean` --> remove generated `target`
-
+- `cargo test some_module` --> test only for some module
+- `cargo test some_module::test_example` --> if you have test named `test_example` (Specific Test Function)
 ## Acknowledgements
 - This repository was inspired by similar collections of practice exercises and homework assignments for other programming languages. We would like to thank the authors of those repositories for their contributions and for inspiring us to create this repository for Rust.
